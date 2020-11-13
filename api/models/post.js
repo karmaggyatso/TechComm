@@ -13,13 +13,28 @@ module.exports = (sequelize, DataTypes) => {
         notEmpty: true,
       }
     },
+    title: {
+      type: DataTypes.STRING,
+      validate: {
+        len: [3, 100],
+        notEmpty: true,
+        unique: true,
+      }
+    },
+    postType: {
+      type: DataTypes.STRING,
+      validate: {
+        isIn: [['rent','job']],
+        notEmpty: true,
+      }
+    },
   }, {
     sequelize,
     modelName: 'post'
   });
 
   Post.associate = (models) => {
-    // associations can be defined here
+    models.Post.belongsTo(models.User, {through: 'User_Posts'});
   };
 
   return Post;
