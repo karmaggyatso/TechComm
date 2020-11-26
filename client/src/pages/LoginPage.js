@@ -1,5 +1,8 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import SignUpPage from './SignUpPage';
+
+import router from '../../../api/controllers/auth';
 
 import auth from '../services/auth';
 
@@ -44,7 +47,8 @@ class LoginPage extends React.Component {
     }
 
     return (
-      <form onSubmit={this.login}>
+      <div>
+        <form onSubmit={this.login}>
         <div className="form-row">
           { err }
           <input 
@@ -67,6 +71,11 @@ class LoginPage extends React.Component {
           >Login</button>
         </div>
       </form>
+      <div>
+        <button type="submit" className="btn btn-primary btn-block" >create new account</button>
+      </div>
+      </div>
+      
     );
   }
 }
