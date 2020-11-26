@@ -12,8 +12,10 @@ import JobPostFormPage from './pages/JobPostFormPage';
 import ShowPostPage from './pages/ShowPostPage';
 import AboutUsPage from './pages/AboutUsPage';
 import LoginPage from './pages/LoginPage';
+import SignUpPage from './pages/SignUpPage';
 import PrivateRoute from './components/PrivateRoute';
 import AuthButton from './components/AuthButton';
+
 
 import './App.css';
 
@@ -54,6 +56,7 @@ class App extends React.Component {
             <div className="row justify-content-center">
               <Switch>
                 <Route path="/login" component={LoginPage} />
+                <Route path="/signup" component={SignUpPage} />
                 <PrivateRoute path="/posts/new" component={PostFormPage} />
                 <Route path="/posts/job" component={JobPostFormPage} />
                 <Route path="/posts/:id" component={ShowPostPage} />

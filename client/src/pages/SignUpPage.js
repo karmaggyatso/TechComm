@@ -1,8 +1,7 @@
 import React from 'react';
-// import router from 'react-router-dom';
-import router from '../../../api/controllers/auth';
+import router from 'react-router-dom';
 
-import auth from '../services/auth';
+// import auth from '../services/auth';
 
 
 class SignUpPage extends React.Component {
@@ -25,7 +24,7 @@ class SignUpPage extends React.Component {
         }
     }
     
-    signUP = (e) => {
+    handleSignUp = (e) => {
         fetch('/api/signUp/', {
             method: 'POST',
             credentials: 'include',
@@ -67,17 +66,17 @@ class SignUpPage extends React.Component {
     render() {
 
         return (
-            <div className="card" style={{width: 50}}>
-               <form onSubmit='signup'>
+            <div className="card" style={{width: '50%'}}>
+               <form onSubmit={this.handleSignUp}>
                    <div className="form-group">
-                        <label for="firstName">First Name </label>
+                        <label >First Name </label>
                         <input type ="text" 
-                            class="form-control" 
+                            className="form-control" 
                             placeholder="Example John" 
                             value={this.state.firstName} 
                             onChange = {this.fieldChanged('firstName')} required></input>
 
-                        <label for="lastName">Last Name </label>
+                        <label>Last Name </label>
                         <input type = "text" 
                             className="form-control" 
                             placeholder="Example Doe" 
@@ -85,14 +84,14 @@ class SignUpPage extends React.Component {
                             onChange = {this.fieldChanged('lastName')}
                             required></input>
 
-                        <label for="dob">Date of Birth</label>
+                        <label>Date of Birth</label>
                         <input type="date" 
                             min="1901-01-01" 
                             value={this.state.dob} 
                             onChange = {this.fieldChanged('dob')}
                             required></input>
 
-                        <label for="email">Email </label>
+                        <label>Email </label>
                         <input type="email" 
                             className="form-control" 
                             placeholder="john@gmail.com" 
@@ -100,14 +99,14 @@ class SignUpPage extends React.Component {
                             onChange = {this.fieldChanged('email')}
                             required></input>
 
-                        <label for="password">Password</label>
+                        <label>Password</label>
                         <input type="password" 
                             className="form-control"
                             value={this.state.password} 
                             onChange = {this.fieldChanged('password')}
                             required></input>
 
-                        <label for="confirm">Confirm Password</label>
+                        <label>Confirm Password</label>
                         <input type="password" 
                             className="form-control" 
                             value={this.state.confirmPass} 

@@ -1,8 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import SignUpPage from './SignUpPage';
-
-import router from '../../../api/controllers/auth';
+import {withRouter} from 'react-router-dom';
 
 import auth from '../services/auth';
 
@@ -71,8 +69,9 @@ class LoginPage extends React.Component {
           >Login</button>
         </div>
       </form>
+      <hr></hr>
       <div>
-        <button type="submit" className="btn btn-primary btn-block" >create new account</button>
+        <a type="submit" className="btn btn-primary btn-block" href= '/api/signup'>create new account</a>
       </div>
       </div>
       
