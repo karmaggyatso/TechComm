@@ -1,5 +1,6 @@
 import React from 'react';
 import router from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 // import auth from '../services/auth';
 
@@ -15,6 +16,7 @@ class SignUpPage extends React.Component {
         email: "",
         error: false,
         success: false,
+        redirectPath: false,
     }
 
     fieldChanged = (name) => {
@@ -25,7 +27,7 @@ class SignUpPage extends React.Component {
     }
     
     handleSignUp = (e) => {
-        fetch('/api/signUp/', {
+        fetch('/api/signup', {
             method: 'POST',
             credentials: 'include',
             headers: {
@@ -40,10 +42,12 @@ class SignUpPage extends React.Component {
             }),
         })
         .then(res => {
+
             if(res.ok) {
-              return res.json()
+                console.log(this.state.firstName);
+              return res.json();
             }
-    
+            
             throw new Error('Content validation');
           })
         .then(post => {
@@ -62,9 +66,20 @@ class SignUpPage extends React.Component {
         
     // }
 
-
+  
     render() {
+        const {success, error} = this.state;
+        console.log(success);
+        const { from } = { from: { pathname: '/login' } };
 
+        if (success) {
+            console.log("PathName:" + from);
+            return (
+                <router exact path = "/" >
+                     <Redirect to ="/login" ></Redirect>
+                    </router>
+            );
+        }
         return (
             <div className="card" style={{width: '50%'}}>
                <form onSubmit={this.handleSignUp}>

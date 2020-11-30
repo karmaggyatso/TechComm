@@ -1,6 +1,5 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-import {withRouter} from 'react-router-dom';
 
 import auth from '../services/auth';
 
@@ -36,7 +35,7 @@ class LoginPage extends React.Component {
     const { redirectToReferrer, failed } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to={from} />;
+      return <Redirect to="/" />;
     }
 
     let err = "";
@@ -71,7 +70,7 @@ class LoginPage extends React.Component {
       </form>
       <hr></hr>
       <div>
-        <a type="submit" className="btn btn-primary btn-block" href= '/api/signup'>create new account</a>
+        <a type="submit" className="btn btn-primary btn-block" href= '/signup'>create new account</a>
       </div>
       </div>
       
