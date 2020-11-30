@@ -1,18 +1,16 @@
 const router = require('express').Router();
-const table = require('../models');
+const { User } = require('../models');
 const passport = require('../middlewares/authentication');
-const {User} = table;
 
 
 router.post('/signup', (req, res) => {
   console.log("POST body: ", req.body);
-  let {firstName,lastName,dob,email,password} = req.body;
-    User.create({
-    firstName,
-    lastName,
-    dob,
-    email,
-    password,
+  User.create({
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
+    dob: req.body.dob,
+    email: req.body.email,
+    password: req.body.password,
   })
     .then((user) => {
       req.login(user, () => res.status(201).json(user));
@@ -22,17 +20,17 @@ router.post('/signup', (req, res) => {
     });
 });
 
-// router.post('/login',
-//   passport.authenticate('local'), 
-//   (req, res) => {
-//     // If this function gets called, authentication was successful.
-//     // `req.user` contains the authenticated user.
-//     res.json(req.user);
-//   });
+router.post('/login',
+  passport.authenticate('local'), 
+  (req, res) => {
+    // If this function gets called, authentication was successful.
+    // `req.user` contains the authenticated user.
+    res.json(req.user);
+  });
 
-// router.post('/logout', (req, res) => {
-//   req.logout();
-//   res.status(200).json({ message: 'Logout successful' });
-// })
+router.post('/logout', (req, res) => {
+  req.logout();
+  res.status(200).json({ message: 'Logout successful' });
+})
 
 module.exports = router;

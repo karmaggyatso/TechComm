@@ -1,9 +1,7 @@
 import React from 'react';
-import router from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
-// import auth from '../services/auth';
-
+import auth from '../services/auth';
 
 class SignUpPage extends React.Component {
 
@@ -16,20 +14,21 @@ class SignUpPage extends React.Component {
         email: "",
         error: false,
         success: false,
-        redirectPath: false,
     }
 
     fieldChanged = (name) => {
         return (event) => {
           let { value } = event.target;
           this.setState({ [name]: value });
+          console.log(this.state);
         }
     }
     
     handleSignUp = (e) => {
-        fetch('/api/signup', {
+        e.preventDefault();
+        fetch("/api/auth/signup", {
             method: 'POST',
-            credentials: 'include',
+            //credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -38,62 +37,57 @@ class SignUpPage extends React.Component {
                 lastName: this.state.lastName, 
                 dob: this.state.dob, 
                 email: this.state.email,
-                password: this.state.password,
+                password: this.state.password
             }),
         })
         .then(res => {
-
             if(res.ok) {
-                console.log(this.state.firstName);
-              return res.json();
+              return res.json()
             }
-            
             throw new Error('Content validation');
           })
-        .then(post => {
+        .then(user => {
             this.setState({
               success: true,
+              redirectToReferrer: true
             });
           })
         .catch(err => {
             this.setState({
               error: true,
             });
+            console.log(err);
           }); 
     }
-
     // handleConfirmPass = () => {
         
     // }
 
-  
     render() {
-        const {success, error} = this.state;
-        console.log(success);
-        const { from } = { from: { pathname: '/login' } };
+      const { from } = this.props.location.state || { from: { pathname: '/' } };
+      const { redirectToReferrer } = this.state;
 
-        if (success) {
-            console.log("PathName:" + from);
-            return (
-                <router exact path = "/" >
-                     <Redirect to ="/login" ></Redirect>
-                    </router>
-            );
-        }
+      if (redirectToReferrer) {
+        return <Redirect to={from} />;
+      }
+
         return (
             <div className="card" style={{width: '50%'}}>
                <form onSubmit={this.handleSignUp}>
                    <div className="form-group">
-                        <label >First Name </label>
+                        <label>First Name </label>
                         <input type ="text" 
                             className="form-control" 
+                            name="firstName"
                             placeholder="Example John" 
                             value={this.state.firstName} 
-                            onChange = {this.fieldChanged('firstName')} required></input>
+                            onChange = {this.fieldChanged('firstName')}
+                            required></input>
 
                         <label>Last Name </label>
                         <input type = "text" 
                             className="form-control" 
+                            name="lastName"
                             placeholder="Example Doe" 
                             value={this.state.lastName} 
                             onChange = {this.fieldChanged('lastName')}
@@ -101,7 +95,8 @@ class SignUpPage extends React.Component {
 
                         <label>Date of Birth</label>
                         <input type="date" 
-                            min="1901-01-01" 
+                            min="1901-01-01"
+                            name="dob"
                             value={this.state.dob} 
                             onChange = {this.fieldChanged('dob')}
                             required></input>
@@ -109,6 +104,7 @@ class SignUpPage extends React.Component {
                         <label>Email </label>
                         <input type="email" 
                             className="form-control" 
+                            name="email"
                             placeholder="john@gmail.com" 
                             value={this.state.email} 
                             onChange = {this.fieldChanged('email')}
@@ -117,6 +113,8 @@ class SignUpPage extends React.Component {
                         <label>Password</label>
                         <input type="password" 
                             className="form-control"
+                            name="password"
+                            minlength="7"
                             value={this.state.password} 
                             onChange = {this.fieldChanged('password')}
                             required></input>
@@ -127,10 +125,9 @@ class SignUpPage extends React.Component {
                             value={this.state.confirmPass} 
                             onChange = {this.fieldChanged('confirmPass')}
                             required></input>
-
                         <button className="btn btn-primary btn-block" type="submit" className="form-control">Create Account</button>
-                   </div>
-                </form>     
+                  </div>     
+                </form>
             </div>
         );
     }

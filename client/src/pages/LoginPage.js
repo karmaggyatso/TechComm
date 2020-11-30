@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
     const { redirectToReferrer, failed } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to="/" />;
+      return <Redirect to={from} />;
     }
 
     let err = "";
