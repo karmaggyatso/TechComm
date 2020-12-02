@@ -6,7 +6,7 @@ const path = require('path');
 const db = require('./models');
 const passport = require('./middlewares/authentication');
 const app = express();
-const PORT = process.env.PORT || 30001;
+const PORT = process.env.PORT || 8000;
 
 
 // this lets us parse 'application/json' content in http requests

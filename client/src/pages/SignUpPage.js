@@ -1,8 +1,6 @@
 import React from 'react';
-import router from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 
-// import auth from '../services/auth';
 
 
 class SignUpPage extends React.Component {
@@ -12,11 +10,12 @@ class SignUpPage extends React.Component {
         lastName: "",
         dob: "", 
         password: "",
-        confirmPass: "",
         email: "",
+        confirmPassword:"",
+        passwordMatch: true,
         error: false,
         success: false,
-        redirectPath: false,
+        redirectToReferrer: false,
     }
 
     fieldChanged = (name) => {
@@ -27,9 +26,11 @@ class SignUpPage extends React.Component {
     }
     
     handleSignUp = (e) => {
-        fetch('/api/signup', {
+        e.preventDefault();
+        
+            fetch("/api/auth/signup/", {
             method: 'POST',
-            credentials: 'include',
+            // credentials: 'include',
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -44,15 +45,16 @@ class SignUpPage extends React.Component {
         .then(res => {
 
             if(res.ok) {
-                console.log(this.state.firstName);
               return res.json();
             }
             
             throw new Error('Content validation');
           })
-        .then(post => {
+        .then(user => {
             this.setState({
               success: true,
+              redirectToReferrer: true,
+              passwordMatch: true,
             });
           })
         .catch(err => {
@@ -62,73 +64,68 @@ class SignUpPage extends React.Component {
           }); 
     }
 
-    // handleConfirmPass = () => {
-        
-    // }
-
   
     render() {
-        const {success, error} = this.state;
+        const {success, error, redirectToReferrer} = this.state;
         console.log(success);
         const { from } = { from: { pathname: '/login' } };
 
-        if (success) {
-            console.log("PathName:" + from);
+        if (redirectToReferrer) {
             return (
-                <router exact path = "/" >
-                     <Redirect to ="/login" ></Redirect>
-                    </router>
+                <Redirect to={from} />
             );
         }
+        
+        let err = "";
+
+        if (error) {
+            err = <div className="alert alert-danger" role="alert">Failed to create new account</div>;
+        }
+
         return (
-            <div className="card" style={{width: '50%'}}>
+            <div style={{width: '50%'}}>
+                {err}
                <form onSubmit={this.handleSignUp}>
-                   <div className="form-group">
-                        <label >First Name </label>
+                   <div className="form-group text-left">
+                        <label>First Name </label>
                         <input type ="text" 
                             className="form-control" 
                             placeholder="Example John" 
                             value={this.state.firstName} 
                             onChange = {this.fieldChanged('firstName')} required></input>
 
-                        <label>Last Name </label>
+                        <label className="mt-2">Last Name </label>
                         <input type = "text" 
-                            className="form-control" 
+                            className="form-control mb-2" 
                             placeholder="Example Doe" 
                             value={this.state.lastName} 
                             onChange = {this.fieldChanged('lastName')}
                             required></input>
 
-                        <label>Date of Birth</label>
+                        <label className ="mt-2">Date of Birth</label>
                         <input type="date" 
                             min="1901-01-01" 
+                            className="form-control mb-2"
                             value={this.state.dob} 
                             onChange = {this.fieldChanged('dob')}
                             required></input>
-
-                        <label>Email </label>
+                        <label className="mt-2">Email </label>
                         <input type="email" 
-                            className="form-control" 
+                            className="form-control mb-2" 
                             placeholder="john@gmail.com" 
                             value={this.state.email} 
                             onChange = {this.fieldChanged('email')}
                             required></input>
 
-                        <label>Password</label>
-                        <input type="password" 
-                            className="form-control"
+                        <label className="mt-2">Password</label>
+                        <input type="text" 
+                            className="form-control mb-2"
                             value={this.state.password} 
                             onChange = {this.fieldChanged('password')}
                             required></input>
+                        <small className="form-text text-muted">The password length should be atleast 8 character long</small> 
 
-                        <label>Confirm Password</label>
-                        <input type="password" 
-                            className="form-control" 
-                            value={this.state.confirmPass} 
-                            onChange = {this.fieldChanged('confirmPass')}
-                            required></input>
-
-                        <button className="btn btn-primary btn-block" type="submit" className="form-control">Create Account</button>
+                        <button className="btn btn-primary btn-block mt-2" type="submit">Create Account</button>
                    </div>
                 </form>     
             </div>

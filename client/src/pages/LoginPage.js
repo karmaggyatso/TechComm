@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
     const { redirectToReferrer, failed } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to="/" />;
+      return <Redirect to= {from} />;
     }
 
     let err = "";
@@ -64,7 +64,7 @@ class LoginPage extends React.Component {
             onChange={this.fieldChanged('password')} />
           <button 
             type="submit"
-            className="btn btn-primary ml-auto"
+            className="btn btn-primary btn-block ml-auto mt-2"
           >Login</button>
         </div>
       </form>
