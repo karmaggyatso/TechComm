@@ -35,7 +35,7 @@ class LoginPage extends React.Component {
     const { redirectToReferrer, failed } = this.state;
 
     if (redirectToReferrer) {
-      return <Redirect to={from} />;
+      return <Redirect to= {from} />;
     }
 
     let err = "";
@@ -44,7 +44,8 @@ class LoginPage extends React.Component {
     }
 
     return (
-      <form onSubmit={this.login}>
+      <div>
+        <form onSubmit={this.login}>
         <div className="form-row">
           { err }
           <input 
@@ -63,10 +64,16 @@ class LoginPage extends React.Component {
             onChange={this.fieldChanged('password')} />
           <button 
             type="submit"
-            className="btn btn-primary ml-auto"
+            className="btn btn-primary btn-block ml-auto mt-2"
           >Login</button>
         </div>
       </form>
+      <hr></hr>
+      <div>
+        <a type="submit" className="btn btn-primary btn-block" href= '/signup'>create new account</a>
+      </div>
+      </div>
+      
     );
   }
 }

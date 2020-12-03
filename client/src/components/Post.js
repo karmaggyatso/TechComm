@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-function Post({ content, createdAt, postType, id }) {
+function Post({ content, title, createdAt, postType, id }) {
   return (
     <div className="col-10 col-md-8 col-lg-7">
       <div className="card mb-4 shadow">
