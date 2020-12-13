@@ -4,14 +4,14 @@ import Loading from '../components/Loading';
 import { Link } from 'react-router-dom';
 
 
-class PostsListPage extends React.Component {
+class RentPostsListPage extends React.Component {
   state = {
     posts: [],
     loading: true,
   }
 
   componentDidMount() {
-    fetch("/api/posts")
+    fetch("/api/posts/rents")
       .then(res => res.json())
       .then(posts => {
         console.log(posts);
@@ -34,12 +34,11 @@ class PostsListPage extends React.Component {
           { this.state.posts }
         </div>
         <div className="text-left">
-          <Link exact to="/posts/job" className="btn btn-primary">+ New Job</Link>
-          <Link exact to="/posts/rent" className="btn btn-primary ml-1">+ New Rent</Link>
+          <Link exact to="/posts/rent" className="btn btn-primary">+ New Rent</Link>
         </div>
       </div>
     );
   }
 }
 
-export default PostsListPage;
+export default RentPostsListPage;

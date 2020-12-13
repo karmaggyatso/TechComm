@@ -46,8 +46,6 @@ passport.serializeUser((user, done) => {
   done(null, user.id);
 });
 
-
-//deserializeUser user the cookie to store the ID and in the future when the user login again, it doesn't require relogging in
 passport.deserializeUser((id, done) => {
   User.findByPk(id)
     .then((user) => {

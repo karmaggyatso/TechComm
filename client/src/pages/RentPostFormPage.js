@@ -1,13 +1,13 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 
-class JobPostFormPage extends React.Component {
+class RentPostFormPage extends React.Component {
   state = {
     error: false,
     success: false,
     title: '',
     content: '',
-    postType: 'job'
+    postType: 'rent'
   }
 
   /*
@@ -78,8 +78,8 @@ class JobPostFormPage extends React.Component {
       <div className="col-10 col-md-8 col-lg-7">
         { errorMessage }
         <div className="form-group">
-          <label htmlFor="title">
-            Role
+          <label for="title">
+            Title:
           </label>
           <textarea
             type="text"
@@ -92,7 +92,7 @@ class JobPostFormPage extends React.Component {
           />
         </div>
         <div className="form-group">
-          <label htmlFor="content">
+          <label for="content">
             Description:
           </label>
           <textarea 
@@ -113,4 +113,4 @@ class JobPostFormPage extends React.Component {
   }
 }
 
-export default JobPostFormPage;
+export default RentPostFormPage;

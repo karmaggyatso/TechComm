@@ -70,7 +70,7 @@ class LoginPage extends React.Component {
       </form>
       <hr></hr>
       <div>
-        <a type="submit" className="btn btn-primary btn-block" href= '/signup'>create new account</a>
+        <a type="submit" className="btn btn-primary btn-block" href= '/signup'>Create New Account</a>
       </div>
       </div>
       

@@ -20,51 +20,47 @@ import SignUpPage from './pages/SignUpPage';
 import PrivateRoute from './components/PrivateRoute';
 import AuthButton from './components/AuthButton';
 
-import logo from './images/TClogo.png';
-
 import './App.css';
 
+
 function Navigation(props) {
-  var userId = JSON.parse(window.sessionStorage.getItem('userId'));
-  let myPostsLink = "/user/" + userId;
   return (
-    <div>
-      <div className="navbar navbar-expand-sm navbar-dark bg-primary shadow mb-3" id="myTopnav">
+    <nav className="navbar navbar-expand-sm navbar-dark bg-dark shadow mb-3">
+      <Link className="navbar-brand" to="/">TechComm</Link>
       <ul className="navbar-nav mr-auto">
-          <li className="active" className="homebtn">
-            <Link className="navbar-brand" to="/">
-              <img src={logo} width="30" height="30" className="d-inline-block align-bottom mr-2" alt="TechComm logo" />
-              TechComm
-            </Link>
-          </li>
-          <li>
-            <NavLink className="navbar" style={{color: "white"}} exact to ="/posts/jobs">Job Listings</NavLink>
-          </li>
-          <li>
-            <NavLink className="navbar" style={{color: "white"}} exact to ="/posts/rents">Rent Listings</NavLink>
-          </li>
-        </ul>
-        <AuthButton />
-      </div>
-      <div className="line"></div>
-      <nav className="sidebar">
-        <div className="sidebar-header">
-          <Link className="nav-link" exact to={myPostsLink}>
-            {/*<img href="./img/why.you.jpeg" height="50" width="50" alt="image"/>*/}
-              <h3>My Posts</h3>      
-          </Link>
-        </div>          
-        <ul className="components">
-          <li>
-            <NavLink className="nav-link" exact to="/posts/job">Add New Job Post</NavLink>
-          </li>
-          <li>
-            <NavLink className="nav-link" exact to="/posts/rent">Add New Rent Post</NavLink>
-          </li>
-        </ul>
-      </nav>
-    </div>    
-    
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/posts/new">
+            Create a Micro Post
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/posts/job">
+            Create a Job Listing
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/posts/jobs">
+            View Job Listings
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/posts/rent">
+            Create a Rental Listing
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/posts/rents">
+            View Rental Listings
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink className="nav-link" exact to="/about-us">
+            About Us
+          </NavLink>
+        </li>
+      </ul>
+      <AuthButton />
+    </nav>
   );
 }
 

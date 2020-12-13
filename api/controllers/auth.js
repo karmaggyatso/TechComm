@@ -1,13 +1,14 @@
 const router = require('express').Router();
-// const table = require('../models');
+const { User, Post } = require('../models');
 const passport = require('../middlewares/authentication');
-const {User} = require('../models');
 
+
+const session = require('node-sessionstorage');
 
 router.post('/signup', (req, res) => {
   console.log("POST body: ", req.body);
-  // let {firstName,lastName,dob,email,password} = req.body;
-    User.create({
+  
+  User.create({
     firstName: req.body.firstName,
     lastName: req.body.lastName,
     dob: req.body.dob,
@@ -28,11 +29,15 @@ router.post('/login',
     // If this function gets called, authentication was successful.
     // `req.user` contains the authenticated user.
     res.json(req.user);
+
+    console.log("user id: " + JSON.stringify(req.session.passport.user));
+    window.sessionStorage.setItem('userId', JSON.stringify(req.session.passport.user));
   });
 
 router.post('/logout', (req, res) => {
   req.logout();
   res.status(200).json({ message: 'Logout successful' });
 })
+
 
 module.exports = router;

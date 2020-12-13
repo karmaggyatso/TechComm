@@ -22,26 +22,55 @@ router.get('/', (req,res) => {
     .then(posts => res.json(posts));
 });
 
+router.get('/jobs', (req,res) => {
+  Post.findAll({ where: { postType: 'job' }, 
+  order:[
+    ['id', 'DESC'],
+  ]
+  })
+    .then(posts => res.json(posts));
+});
+
+router.get('/rents', (req,res) => {
+  Post.findAll({ where: { postType: 'rent' } })
+    .then(posts => res.json(posts));
+});
 
 router.post('/',
   passport.isAuthenticated(),
   (req, res) => {
-    // let { content } = req.body;
-    let {title, content, postType} = req.body;
-    console.log("req.body: " + req.body);
+    let { title, content, postType } = req.body;
+    let userId = req.session.passport.user;
+    console.log("req.session: " + JSON.stringify(req.session));
+    console.log("req.body: " + JSON.stringify(req.body));
     console.log("title:" + title);
     console.log("content: " + content);
     console.log("postType: " + postType);
-
-    Post.create({ content })
+    console.log("userId: " + userId);
+    
+    Post.create({ title, content, postType, userId })
       .then(post => {
+        console.log(post.content + " " + post.title);
         res.status(201).json(post);
       })
       .catch(err => {
+        console.log(err);
         res.status(400).json(err);
       });
   }
 );
+
+router.get('/user/:id', (req, res) => {
+  const { id } = req.params;
+  Post.findAll({ where: { userdId: id } })
+    .then(posts =>{
+      console.log(res)
+      res.json(posts)})
+    .catch(err => {
+      console.log(err);
+      res.status(400).json(err);
+    })
+})
 
 
 router.get('/:id', (req, res) => {
@@ -51,7 +80,6 @@ router.get('/:id', (req, res) => {
       if(!post) {
         return res.sendStatus(404);
       }
-
       res.json(post);
     });
 });

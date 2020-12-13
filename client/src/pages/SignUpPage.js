@@ -1,6 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
-
+import hands from '../images/hands.png';
 
 
 class SignUpPage extends React.Component {
@@ -83,8 +83,13 @@ class SignUpPage extends React.Component {
         }
 
         return (
-            <div style={{width: '50%'}}>
+            <div  className="signupcontains">
+            <div className="imgposition">
+                     <img src={hands}  height="0" width="0"  />
+            </div>
+            <div className=""  >
                 {err}
+                <div  id="formsignup" >
                <form onSubmit={this.handleSignUp}>
                    <div className="form-group text-left">
                         <label>First Name </label>
@@ -118,7 +123,7 @@ class SignUpPage extends React.Component {
                             required></input>
 
                         <label className="mt-2">Password</label>
-                        <input type="text" 
+                        <input type="password" 
                             className="form-control mb-2"
                             value={this.state.password} 
                             onChange = {this.fieldChanged('password')}
@@ -127,8 +132,11 @@ class SignUpPage extends React.Component {
 
                         <button className="btn btn-primary btn-block mt-2" type="submit">Create Account</button>
                    </div>
-                </form>     
+                </form> 
+                </div>    
             </div>
+            </div>    
+           
         );
     }
 }

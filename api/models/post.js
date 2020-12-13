@@ -15,10 +15,10 @@ module.exports = (sequelize, DataTypes) => {
     },
     title: {
       type: DataTypes.STRING,
+      unique: true,
       validate: {
         len: [3, 100],
         notEmpty: true,
-        unique: true,
       }
     },
     postType: {
