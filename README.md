@@ -1,7 +1,24 @@
-# Project Starter 
-A starter repo for building CUNY Tech Prep projects with React, Express.js, and Sequelize.js
+# TechComm
+Technology for Community
+
+Corey Zoubkov, Jeewan Thapa Magar, Karma Gyatso
+
+## Built on top of CUNY Tech Prep Project Starter
+https://github.com/CUNYTechPrep/project-starter
 
 ## Stack
+*Additional dependencies*
+ - Node v.12+ https://nodejs.org/en/
+ - PostgreSQL v.11+
+    - Installing PostgreSQL:
+      - https://github.com/CUNYTechPrep/project-starter
+      - https://github.com/CUNYTechPrep/ctp2019/blob/master/guides/installing-postgresql.md
+      - https://www.postgresql.org
+
+    - Help for Windows users:
+      - https://drive.google.com/file/d/1GvvrRbrnBj-sX-1pyfhmYfLVCLgp1f5R/view?usp=sharing (31:56)
+      - Source: CUNY Tech Prep Recordings - Fall 2020, Week 7
+        - https://docs.google.com/document/d/1WYavNqq5DVC4fTy5EM8AYJRl8MqQ1qg44QDzjgl-VeE/edit
 
 *API*
 
@@ -25,8 +42,12 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 │   │   └── config.json
 │   ├── <strong>controllers</strong>
 │   │   ├── appConfig.js
+│   │   ├── auth.js
 │   │   ├── index.js
-│   │   └── posts.js
+│   │   ├── posts.js
+│   │   └── users.js
+│   ├── <strong>middlewares</strong>
+│   │   └── authentication.js
 │   └── <strong>models</strong>
 │       ├── index.js
 │       └── post.js
@@ -46,16 +67,28 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 │       ├── App.js
 │       ├── App.test.js
 │       ├── <strong>components</strong>
+│       │   ├── AuthButton.js
 │       │   ├── Loading.js
-│       │   └── Post.js
+│       │   ├── Post.js
+│       │   └── PrivateRoute.js
 │       ├── index.css
 │       ├── index.js
 │       ├── logo.svg
 │       ├── <strong>pages</strong>
 │       │   ├── AboutUsPage.js
+│       │   ├── JobPostFormPage.js
+│       │   ├── JobPostsListPage.js
+│       │   ├── LoginPage.js
 │       │   ├── PostFormPage.js
-│       │   ├── PostsListPage.js
-│       │   └── ShowPostPage.js
+│       │   ├── PostListsPage.js
+│       │   ├── ProfilePage.js
+│       │   ├── RentPostFormPage.js
+│       │   ├── RentPostsListPage.js
+│       │   ├── ShowPostPage.js
+│       │   ├── SignUpPage.js
+│       │   └── UserPostsListPage.js
+│       ├── <strong>services</strong>
+│       │   └── auth.js
 │       └── serviceWorker.js
 ├── package-lock.json
 └── package.json
@@ -64,7 +97,7 @@ A starter repo for building CUNY Tech Prep projects with React, Express.js, and 
 
 ## Dev Setup
 
-Each team member will need to do this on their local machine.
+Do this on your local machine.
 
 ### Create a postgres db
 
@@ -82,8 +115,6 @@ Create a separate db for this project:
 ```
 createdb -h localhost -U ctp_user app2019_development
 ```
-
-> You will create a DB for each project you start based on this repo. For other projects change `app2019_development` to the new apps database name.
 
 *For more details see this [installing postgres guide](https://github.com/CUNYTechPrep/ctp2019/blob/master/guides/installing-postgresql.md)*
 
@@ -111,42 +142,3 @@ npm start
 - react-client will launch at: http://localhost:3000
 
 > In production you will only deploy a single app. The react client will build into static files that will be served from the backend.
-
-## Deployment
-
-### Setting up Heroku
-
-Install the heroku cli if you don't already have it. 
-
-> You will also need a heroku account
-> And this will only be done once on your machine
-
-```bash
-# on mac
-brew install heroku/brew/heroku
-heroku login
-```
-
-### Create a Heroku project
-
-Next, `cd` into this project directory and create a project:
-
-```bash
-heroku create cool-appname
-heroku addons:create heroku-postgresql:hobby-dev
-```
-
-> This will deploy your apps to https://cool-appname.herokuapp.com, assuming that it is not taken already.
-
-> You only need to do this once per app
-
-### Deploying the app
-
-Whenever you want to update the app run this command.
-
-```bash
-git push heroku master
-```
-
-> This command deploys your master branch. You can change that and deploy a different branch such as: `git push heroku development`
-
